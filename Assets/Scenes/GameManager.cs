@@ -65,7 +65,7 @@ namespace Assets.Scenes
             {
                 StartCoroutine(ShowResultAfterBlocksStop());
             }
-            Debug.Log($"遊戲結束！[{typeMsg}]");
+            Debug.Log($"game over！[{typeMsg}]");
         }
 
         private IEnumerator ShowResultAfterBlocksStop()
@@ -87,7 +87,7 @@ namespace Assets.Scenes
 
             //重載後BGM會重播，有需要可以用BGMSource.time紀錄時間讓BGM接續播放。
 
-            Debug.Log($"遊戲Restart！");
+            Debug.Log($"game restart！");
         }
 
         public void SetStatus_Processing()

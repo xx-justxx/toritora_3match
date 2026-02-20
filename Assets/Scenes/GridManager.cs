@@ -74,7 +74,7 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         InitGridMap();
-        Debug.Log($"GridManager InitOK！");
+        //Debug.Log($"gridmanager InitOK！");
     }
 
     private void InitGridMap()
@@ -303,7 +303,7 @@ public class GridManager : MonoBehaviour
                             {
                                 if (nearGrid.Block != null)
                                 {
-                                    Debug.Log($"Block[{_selectedBlock.ID}] Move into Grid[{nearGrid.GridX},{nearGrid.GridY}] ID:[{nearGrid.Block.ID}]");
+                                    //Debug.Log($"Block[{_selectedBlock.ID}] Move into Grid[{nearGrid.GridX},{nearGrid.GridY}] ID:[{nearGrid.Block.ID}]");
                                     targetGrid = nearGrid;
                                 }
                             }
@@ -393,7 +393,7 @@ public class GridManager : MonoBehaviour
 
     private IEnumerator SwapBlock(GridObj gridA, GridObj gridB)
     {
-        Debug.Log($"SwapBlock Begin A:[{gridA.Block.ID}] B:[{gridB.Block.ID}]");
+        //Debug.Log($"SwapBlock Begin A:[{gridA.Block.ID}] B:[{gridB.Block.ID}]");
         _movingBlocks += 2;
         try
         {
@@ -414,7 +414,7 @@ public class GridManager : MonoBehaviour
             }
 
 
-            Debug.Log($"SwapBlock Begin A:[{gridA.Block.ID}][{gridA.Position}][{gridA.Block.transform.position}]  B:[{gridB.Block.ID}][{gridB.Position}][{gridB.Block.transform.position}]");
+            //Debug.Log($"SwapBlock Begin A:[{gridA.Block.ID}][{gridA.Position}][{gridA.Block.transform.position}]  B:[{gridB.Block.ID}][{gridB.Position}][{gridB.Block.transform.position}]");
 
             //移動動畫結束後，實際交換Grid中的內容
             BlockObj tmpBlock = gridA.Block;
@@ -423,13 +423,13 @@ public class GridManager : MonoBehaviour
             gridA.Block.SetStatus_MoveEnd(gridA);
             gridB.Block.SetStatus_MoveEnd(gridB);
 
-            Debug.Log($"SwapBlock End A:[{gridA.Block.ID}][{gridA.Position}][{gridA.Block.transform.position}]  B:[{gridB.Block.ID}][{gridB.Position}][{gridB.Block.transform.position}]");
+            //Debug.Log($"SwapBlock End A:[{gridA.Block.ID}][{gridA.Position}][{gridA.Block.transform.position}]  B:[{gridB.Block.ID}][{gridB.Position}][{gridB.Block.transform.position}]");
         }
         finally
         {//避免有exception導致movingBlocks算錯遊戲卡住
             _movingBlocks -= 2;
         }
-        Debug.Log($"SwapBlock End A:[{gridA.Block.ID}] B:[{gridB.Block.ID}]");
+        //Debug.Log($"SwapBlock End A:[{gridA.Block.ID}] B:[{gridB.Block.ID}]");
     }
 
     /// <summary>Match相關處理，回傳是否觸發Match(是否需換回原位)</summary>
@@ -524,7 +524,7 @@ public class GridManager : MonoBehaviour
         foreach (BlockObj block in match4BlockSet)
         {
             block.SetStatus_Match4Success();
-            Debug.Log($"4MatchOK,[{block.ToLogStr()}]");
+            //Debug.Log($"4MatchOK,[{block.ToLogStr()}]");
         }
         matchBlockSet.UnionWith(match4BlockSet);
         return match4BlockSet.Count;
@@ -563,7 +563,7 @@ public class GridManager : MonoBehaviour
         foreach (BlockObj block in match3BlockSet)
         {
             block.SetStatus_Match3Success();
-            Debug.Log($"3MatchOK,[{block.ToLogStr()}]");
+            //Debug.Log($"3MatchOK,[{block.ToLogStr()}]");
         }
         matchBlockSet.UnionWith(match3BlockSet);
         return match3BlockSet.Count;
@@ -648,19 +648,19 @@ public class GridManager : MonoBehaviour
             {
                 if (CalculateTool.IsNearBlockIDExistMatch(blockIDMap, x, y, 3, true, _3matchCheckList))
                 {//橫向3格判斷
-                    Debug.Log($"IsNearBlockIDExistMatch,x:[{x}] y:[{y}] gridCount:[{3}] horizontal:[true]");
+                    //Debug.Log($"IsNearBlockIDExistMatch,x:[{x}] y:[{y}] gridCount:[{3}] horizontal:[true]");
                     return true;
                 }
 
                 if (CalculateTool.IsNearBlockIDExistMatch(blockIDMap, x, y, 4, true, _4matchCheckList))
                 {//橫向4格判斷
-                    Debug.Log($"IsNearBlockIDExistMatch,x:[{x}] y:[{y}] gridCount:[{4}] horizontal:[true]");
+                    //Debug.Log($"IsNearBlockIDExistMatch,x:[{x}] y:[{y}] gridCount:[{4}] horizontal:[true]");
                     return true;
                 }
 
                 if (CalculateTool.IsNearBlockIDExistMatch(blockIDMap, x, y, 3, false, _3matchCheckList))
                 {//直向3格判斷
-                    Debug.Log($"IsNearBlockIDExistMatch,x:[{x}] y:[{y}] gridCount:[{3}] horizontal:[false]");
+                    //Debug.Log($"IsNearBlockIDExistMatch,x:[{x}] y:[{y}] gridCount:[{3}] horizontal:[false]");
                     return true;
                 }
             }

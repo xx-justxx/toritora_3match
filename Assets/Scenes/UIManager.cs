@@ -23,7 +23,7 @@ namespace Assets.Scenes
         public Button RestartButton;
         public TMP_Text Result_SyncStatusText;
 
-        private float _remainingTimeSec = 180f;
+        private float _remainingTimeSec =  180f;
         private int _totalScore = 0;
 
         private int _combo = 0;         //單次交換的連續Match數，每次結束後歸0
@@ -57,15 +57,18 @@ namespace Assets.Scenes
 
         public void AddScore(int score)
         {
-            score = Mathf.FloorToInt(score * (1 + _combo * 0.1f));   //combo加成
+            if(GameManager.Instance.Status != GameStatus.GameOver)
+            {//如果GameOver就不再更新(避免結束時剛好有Match)
+                score = Mathf.FloorToInt(score * (1 + _combo * 0.1f));   //combo加成
 
-            if (_totalScore + score > MaxScore)
-            {
-                _totalScore = MaxScore;//score上限
-            }
-            else
-            {
-                _totalScore += score;
+                if (_totalScore + score > MaxScore)
+                {
+                    _totalScore = MaxScore;//score上限
+                }
+                else
+                {
+                    _totalScore += score;
+                }
             }
         }
 

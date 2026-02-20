@@ -206,6 +206,32 @@ public class GridManager : MonoBehaviour
     {
         int inputStatus = 0;    //0:none,1:開始按壓,2:按壓中,3:放開
         Vector2 inputPos = Vector2.zero;
+
+        var pointer = Pointer.current;  //Pointer可相容Mouse與Touchscreen(自動抓取第一個觸控點)
+        if (pointer != null)
+        {
+            inputPos = pointer.position.ReadValue();
+            if (pointer.press.wasPressedThisFrame)
+            {//點擊
+                if (_selectedBlock == null)
+                {
+                    inputStatus = 1;
+                }
+            }
+            else if (pointer.press.isPressed)
+            {//持續按壓中
+                if (_selectedBlock != null)
+                {
+                    inputStatus = 2;
+                }
+            }
+            else if (pointer.press.wasReleasedThisFrame)
+            {//只要非處於按壓狀態，就當作放開
+                inputStatus = 3;
+            }
+        }
+
+        /*
         if (Mouse.current != null)
         {//PC滑鼠判斷
             if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -246,7 +272,7 @@ public class GridManager : MonoBehaviour
                 if (_selectedBlock != null)
                 {
                     inputStatus = 2;
-                    inputPos = Mouse.current.position.ReadValue();
+                    inputPos = touch.position.ReadValue();
                 }
             }
             else if (phase == UnityEngine.InputSystem.TouchPhase.Ended || phase == UnityEngine.InputSystem.TouchPhase.Canceled)
@@ -257,6 +283,8 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+        */
+
 
         switch (inputStatus)
         {
@@ -375,7 +403,7 @@ public class GridManager : MonoBehaviour
         {
             yield return StartCoroutine(FillNewBlock());            //落下處理
 
-            if(UIManager.Instance.Combo < 99)
+            if (UIManager.Instance.Combo < 99)
             {
                 if (GameManager.Instance.Status != GameStatus.GameOver && GameManager.Instance.Status != GameStatus.Pause)
                 {//TimeOut等情況導致已進入GameOver的話就不做Match
@@ -385,7 +413,7 @@ public class GridManager : MonoBehaviour
             else
             {//Combo超過99就不再做Match，避免無限循環
                 hasMatch = false;
-            }            
+            }
         } while (hasMatch);
 
         UIManager.Instance.SetCombo(0);//combo結束後歸0
